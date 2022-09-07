@@ -1,8 +1,7 @@
 package com.betapi.bet.controller;
 
-import com.betapi.bet.model.Player;
 import com.betapi.bet.model.dto.PlayerIn;
-import com.betapi.bet.repository.PlayerRepository;
+import com.betapi.bet.service.PlayerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,12 +13,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class PlayerController {
 
-    private final PlayerRepository playerRepository;
+    private final PlayerService playerService;
 
     @PostMapping("/player")
     public ResponseEntity savePlayer(@RequestBody PlayerIn playerIn) {
-        Player player = playerIn.toConvert();
-        playerRepository.save(player);
+        playerService.savePlayer(playerIn);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 }
