@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import javax.validation.Valid;
 
 @RequiredArgsConstructor
 @RestController
@@ -16,7 +17,7 @@ public class PlayerController {
     private final PlayerService playerService;
 
     @PostMapping("/player")
-    public ResponseEntity savePlayer(@RequestBody PlayerIn playerIn) {
+    public ResponseEntity savePlayer(@Valid @RequestBody PlayerIn playerIn) {
         playerService.savePlayer(playerIn);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
