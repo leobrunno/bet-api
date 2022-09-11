@@ -21,6 +21,6 @@ public class Bet {
     private String betNum;
 
     @ManyToOne
-    @JoinColumn(name = "id", nullable = false)
+    @JoinColumn(name = "idPlayer", nullable = false)
     private Player player;
 }

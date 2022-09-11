@@ -4,14 +4,13 @@ import com.betapi.bet.model.Bet;
 import com.betapi.bet.model.Player;
 import com.betapi.bet.model.dto.BetIn;
 import com.betapi.bet.model.dto.BetOut;
+import com.betapi.bet.model.dto.BetsOut;
 import com.betapi.bet.repository.BetRepository;
 import com.betapi.bet.repository.PlayerRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.NoSuchElementException;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 @RequiredArgsConstructor
 @Service
@@ -36,5 +35,19 @@ public class BetService {
         }
 
         return betOut;
+    }
+
+    public List<BetsOut> listBetsIdPlayer(Long idPlayer) {
+        List<Bet> betList = betRepository.findByIdPlayer(idPlayer);
+        List<BetsOut> betsListOut = new ArrayList<>();
+
+        betList.forEach(bets -> {
+            BetsOut betsOut = new BetsOut();
+            betsOut.setBetNum(bets.getBetNum());
+            betsOut.setPlayer(bets.getPlayer());
+            betsListOut.add(betsOut);
+        });
+
+        return betsListOut;
     }
 }
